@@ -1,0 +1,170 @@
+﻿<!DOCTYPE>
+<html>
+<head>
+    <title>登录信息</title>
+    <meta charset="utf-8">
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background:url(img/book_01.jpg) no-repeat left top;
+            background-size:100% 100%;
+
+        }
+        .book {
+            margin-left: 30px;
+            margin-top: 150px;
+            font-size: 30px;
+        }
+        .book>div {
+            margin-top: 10px;
+        }
+        .book input {
+            height: 70px;
+        }
+        .error-color {
+            color:red;
+        }
+        .submit-button {
+            margin: 10px 20px;
+        }
+        .head-bar {
+            text-align: center;
+            text-decoration: none;
+            margin: 70px 15px 2px 15px;
+            font-size: 30px;
+        }
+
+        .img-preview {
+            border-radius: 50%;
+            width:140px;
+            height: 140px;
+        }
+
+    </style>
+</head>
+
+<body class="container">
+<div >
+    <div class="row head-bar">
+        <span class="col-sm-4"> <a href="index.html">返回首页</a></span>
+        <span class="col-sm-4"><a href="message.html">查看留言</a></span>
+        <span class="col-sm-2"><a href="update.html">修改</a></span>
+        <span class="col-sm-2"><a href="javascript:;" onclick="logout()">退出</a></span>
+    </div>
+
+
+    <!--show-->
+    <div class="book showInfo">
+        <div class="row">
+            <label for="name" class="col-sm-2"><span class="error-color">*</span>姓名:</label>
+            <span id="fill_name" class="col-sm-10"></span>
+        </div>
+
+        <div class="row">
+            <label for="nickname" class="col-sm-2"><span class="error-color">*</span>昵称:</label>
+            <span id="fill_nickname" class="col-sm-10"></span>
+        </div>
+
+
+        <div class="row">
+            <label for="zodiac" class="col-sm-2">生肖:</label>
+            <span id="fill_zodiac" class="col-sm-10"></span>
+
+        </div>
+
+        <div class="row">
+            <label for="constellation" class="col-sm-2">星座:</label>
+            <span id="fill_constellation" class="col-sm-10"></span>
+
+        </div>
+
+        <div class="row">
+            <label for="interest" class="col-sm-2">兴趣:</label>
+            <span id="fill_interest" class="col-sm-10"></span>
+
+        </div>
+        <div class="row">
+            <label for="job" class="col-sm-2"><span class="error-color">*</span>职业:</label>
+            <span id="fill_job" class="col-sm-10"></span>
+        </div>
+        <div class="row">
+            <label for="mobile" class="col-sm-2"><span class="error-color">*</span>手机:</label>
+            <span class="col-sm-10">
+            <span id="fill_mobile"></span>
+                </span>
+        </div>
+
+
+        <div class="row">
+            <label for="address" class="col-sm-2">家庭住址:</label>
+            <span id="fill_address" class="col-sm-10"></span>
+        </div>
+
+        <div class="row">
+            <label for="job_addr" class="col-sm-2">工作地址:</label>
+            <span id="fill_job_addr" class="col-sm-10"></span>
+
+        </div>
+
+        <div class="row">
+            <label for="unit" class="col-sm-2">工作单位:</label>
+            <span id="fill_unit" class="col-sm-10"></span>
+
+        </div>
+
+        <div class="row">
+            <label for="message" class="col-sm-2"><span class="error-color">*</span>留言:</label>
+            <span id="fill_message" class="col-sm-10"></span>
+
+        </div>
+
+        <div class="row">
+            <label>头像</label>
+            <div class="preview">
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script>
+    var classmate = null;
+
+    $(function(){
+        var href=document.getElementsByTagName('a');
+        for(var i=0;i<href.length;i++)
+        {
+            href[i].ontouchend=function(){
+                window.location.href=this.getAttribute("href");
+            }
+        };
+
+        var token = sessionStorage.getItem('token');
+        var data = sessionStorage.getItem('classmate');
+        if(token && data) {
+            classmate = JSON.parse(data);
+            for(var index in classmate) {
+                $('#fill_'+index).text(classmate[index]);
+            }
+            if(classmate.avatar) {
+                var html = '<img src="img path' + classmate.avatar + '" class="img-preview img-thumbnail">';
+                $('.preview').html(html);
+            }
+        } else {
+            location.href = 'book.html'
+        }
+    });
+
+    function logout() {
+        sessionStorage.clear()
+        location.href = 'index.html'
+    }
+
+
+
+</script>
+</html>

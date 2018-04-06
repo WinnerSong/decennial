@@ -1,0 +1,166 @@
+﻿<!DOCTYPE>
+<html>
+<head>
+    <title>登录信息</title>
+    <meta charset="utf-8">
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background:url(img/book_01.jpg) no-repeat left top;
+            background-size:100% 100%;
+
+        }
+        .book {
+            margin-left: 30px;
+            margin-top: 150px;
+            font-size: 30px;
+        }
+        .book>div {
+            margin-top: 10px;
+        }
+        .book input {
+            height: 70px;
+        }
+        .error-color {
+            color:red;
+        }
+        .submit-button {
+            margin: 10px 20px;
+        }
+        .head-bar {
+            text-align: center;
+            text-decoration: none;
+            margin: 70px 15px 2px 15px;
+            font-size: 30px;
+
+        }
+
+    </style>
+</head>
+
+<body class="container">
+<div >
+    <div class="row head-bar">
+        <span class="col-sm-4"> <a href="index.html">返回首页</a></span>
+        <span class="col-sm-4"><a href="message.html">查看留言</a></span>
+        <span class="col-sm-2"><a href="book.html">登记</a></span>
+    </div>
+
+
+    <div class="book">
+        <div class="row">
+            <label for="mobile">
+                手机：
+            </label>
+            <input type="text" name="mobile" id="mobile">
+        </div>
+
+        <div class="row">
+            <label for="password">
+                密码：
+            </label>
+            <input type="password" name="password" id="password">
+        </div>
+        <div>
+            <center>
+                <button class="btn btn-primary btn-lg submit-button" type="submit" onclick="submit()">登录</button>
+                <div class="alert alert-danger error-tip col-sm-offset-1" >
+                    <span class="error-text"></span>
+                </div>
+            </center>
+        </div>
+
+
+    </div>
+</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script>
+//    var baseURl = 'http://www.blog.local/api/';
+var baseURl = 'your api route';
+
+    $(function(){
+        var href=document.getElementsByTagName('a');
+        for(var i=0;i<href.length;i++)
+        {
+            href[i].ontouchend=function(){
+                window.location.href=this.getAttribute("href");
+            }
+        };
+
+        $('.error-tip').hide()
+        var token = sessionStorage.getItem('token');
+        var data = sessionStorage.getItem('classmate');
+        if(token && data) {
+            location.href = 'show.html'
+        }
+    });
+    function submit() {
+
+
+        var password = $.trim($('#password').val());
+        if(!password || password.length < 6) {
+            return showError('请长度至少6位的密码输入密码')
+        }
+
+        var mobile = $('#mobile').val();
+        if(!mobile) {
+            return showError('请填写手机号')
+        }
+        if(isNaN(mobile) || mobile.length != 11) {
+            return showError('手机号格式不正确')
+        }
+
+        var data = {
+            mobile: mobile,
+            password:password,
+        };
+
+        var url = baseURl + 'classmates/login';
+        $('.submit-button').attr('disabled',true);
+        $.ajax({
+            type:'POST',
+            url: url,
+            data: data,
+            dataType:'json',
+            success: function(data) {
+                console.log(data)
+                if(data.code == 200) {
+                    sessionStorage.setItem('token',data.token);
+                    sessionStorage.setItem('classmate',JSON.stringify(data.data));
+                    location.href = 'show.html'
+                } else {
+                    showError(data.msg)
+                }
+                $('.submit-button').attr('disabled',false);
+
+            },
+            error: function (data) {
+                console.log(data)
+                $('.submit-button').attr('disabled',false);
+                showError('服务器开小差了')
+
+
+            }
+
+        })
+
+    }
+
+
+    function showError(msg) {
+        $('.error-text').text(msg)
+        $('.error-tip').show()
+        hideError()
+        return false
+    }
+    function hideError() {
+        setTimeout(function () {
+            $('.error-tip').hide()
+        },3000)
+    }
+
+
+</script>
+</html>

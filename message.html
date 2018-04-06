@@ -1,0 +1,227 @@
+﻿<!DOCTYPE>
+<html>
+<head>
+    <title>登录信息</title>
+    <meta charset="utf-8">
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+        body {
+            background-color:gainsboro;
+        }
+
+        .error-color {
+            color:red;
+        }
+        .submit-button {
+            margin: 10px 20px;
+        }
+        .head-bar {
+            text-align: center;
+            text-decoration: none;
+            margin: 10px 15px 2px 15px;
+            font-size: 30px;
+        }
+        .msg-head {
+
+            border-top: 1px solid pink;
+            border-bottom: 1px solid pink;
+            padding: 15px 10px;
+            height: 80px;
+        }
+        .msg-content {
+            border: 1px solid pink;
+            padding: 15px 15px;
+            min-height: 180px;
+        }
+        .message {
+            width:95%;
+            background-color: white;
+            font-size:30px;
+        }
+        .bottom {
+            position:absolute;
+            z-index:10;
+            top:100px;
+        }
+        .img-preview {
+            border-radius: 50%;
+            width:140px;
+            height: 140px;
+        }
+    </style>
+</head>
+
+<body class="container">
+    <div class="row head-bar">
+        <span class="col-sm-3"> <a href="index.html">返回首页</a></span>
+        <span class="col-sm-4 login"><a href="login.html">去登录</a></span>
+        <span class="col-sm-4 show"><a href="show.html">查看信息</a></span>
+        <span class="col-sm-2 book"><a href="book.html">登记</a></span>
+    </div>
+    <div style="margin: 10px;color:gray;font-size:30px">
+        <center>城里套路深，一起回农村走走。。。</center>
+    </div>
+
+    <div class="publish">
+        <textarea name="content" id="content" rows="8" class="col-sm-11" maxlength="20"></textarea>
+        <div style="margin-top:10px;margin-bottom: 10px" class="row">
+            <button type="submit" class="btn btn-primary btn-lg submit-button"  style="margin-right: 20px" onclick="submit()">发表</button>
+            <div class="alert alert-danger error-tip col-sm-offset-1" >
+                <span class="error-text"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="message">
+
+    </div>
+
+    <div>
+        <img src="img/bottom_img.png" class="bottom-img" style="width: 100%">
+        <center>
+        <img src="img/pay.png" style="width:200px;height: 200px;margin:20px">
+        </center>
+        <center>
+            <span class="error-color">
+                *通讯录费用另外计划，聚会费用每人100元，付款请备注好姓名<br/>
+                *不备注算是给我的赞赏了!!!
+                    </span>
+        </center>
+    </div>
+
+
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script>
+//    var baseURl = 'http://www.blog.local/api/';
+var baseURl = 'your api route';
+
+    var classmate = null;
+    var token = sessionStorage.getItem('token');
+    var data = sessionStorage.getItem('classmate');
+    var messages = [];
+    $(function(){
+        var href=document.getElementsByTagName('a');
+        for(var i=0;i<href.length;i++)
+        {
+            href[i].ontouchend=function(){
+                window.location.href=this.getAttribute("href");
+            }
+        };
+
+        $('.error-tip').hide();
+        if(token && data) {
+            classmate = JSON.parse(data);
+            $('.login').hide();
+            $('.book').hide();
+        } else {
+            $('.show').hide();
+        }
+        load();
+    });
+
+    function load() {
+        var url = baseURl + 'messages';
+        $.ajax({
+            type:'GET',
+            url: url,
+            dataType:'json',
+            success: function(data) {
+                console.log(data)
+                if(data.code == 200) {
+                    messages = data.data;
+                    var html = '';
+                    for(var index in messages)
+                    {
+                        html += initItem(messages[index]);
+                    }
+                    $('.message').html(html);
+                } else {
+                    showError(data.msg)
+                }
+                $('.submit-button').attr('disabled',false);
+
+            },
+            error: function (data) {
+                console.log(data)
+                $('.submit-button').attr('disabled',false);
+                showError('服务器开小差了')
+
+
+            }
+
+        })
+    }
+
+    function initItem(item) {
+        html = '';
+        html += '<div><div class="msg-head row"><span class="text-left col-sm-4">';
+        html += item.nickname;
+        html += '</span>';
+        html += '<span class="text-right col-sm-6">';
+        html += item.created_at;
+        html += '</span></div>';
+        html += '<div class="msg-content">';
+        html += '<div class="row">';
+        html += '<img src="http://www.songzhiwen.cn' + item.avatar + '" class="img-preview img-thumbnail">';
+        html += item.content;
+        html += '</div>';
+        html += '</div></div>';
+        return html;
+    }
+    function submit() {
+        if(!token || !classmate) {
+            return showError('未登录不能评论')
+        }
+        var content = $.trim($('#content').val());
+        if(!content) {
+            return showError('内容不能为空')
+        }
+        var url = baseURl + 'messages?token=' + token;
+        $('.submit-button').attr('disabled',true);
+        $.ajax({
+            type:'POST',
+            url: url,
+            data: {content:content},
+            dataType:'json',
+            success: function(data) {
+                console.log(data)
+                if(data.code == 200) {
+                    var html = '';
+                    html += initItem(data.data);
+                    $('.message').html(html + $('.message').html());
+                } else {
+                    showError(data.msg)
+                }
+                $('.submit-button').attr('disabled',false);
+
+            },
+            error: function (data) {
+                console.log(data)
+                $('.submit-button').attr('disabled',false);
+
+            }
+
+        })
+
+    }
+
+
+    function showError(msg) {
+        $('.error-text').text(msg)
+        $('.error-tip').show()
+        hideError()
+        return false
+    }
+    function hideError() {
+        setTimeout(function () {
+            $('.error-tip').hide()
+        },3000)
+    }
+
+
+</script>
+</html>

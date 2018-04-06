@@ -1,0 +1,332 @@
+<!DOCTYPE>
+<html>
+<head>
+    <title>登录信息</title>
+    <meta charset="utf-8">
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js" type="text/javascript" charset="utf-8"></script>
+
+    <style>
+        body {
+            background:url(img/book_01.jpg) no-repeat left top;
+            background-size:100% 100%;
+
+        }
+        .book {
+            margin-left: 30px;
+            margin-top: 150px;
+            font-size: 30px;
+        }
+        .book>div {
+            margin-top: 10px;
+        }
+        .book input {
+            height: 70px;
+        }
+        .error-color {
+            color:red;
+        }
+        .submit-button {
+            margin: 10px 20px;
+        }
+        .head-bar {
+            text-align: center;
+            text-decoration: none;
+            margin: 70px 15px 2px 15px;
+            font-size: 30px;
+        }
+        .img-preview {
+            border-radius: 50%;
+            width:140px;
+            height: 140px;
+        }
+
+    </style>
+</head>
+
+<body class="container">
+    <div >
+        <div class="row head-bar">
+            <span class="col-sm-4"> <a href="index.html">返回首页</a></span>
+            <span class="col-sm-4"><a href="message.html">查看留言</a></span>
+            <span class="col-sm-4"><a href="show.html">查看信息</a></span>
+        </div>
+        <div class="book create">
+            <div class="row">
+            <label for="name" class="col-sm-2"><span class="error-color">*</span>姓名:</label>
+            <input id="name" name="name"  class="col-sm-5">
+            </div>
+
+            <div class="row">
+                <label for="nickname" class="col-sm-2"><span class="error-color">*</span>昵称:</label>
+                <input id="nickname" name="nickname"  class="col-sm-5">
+            </div>
+
+
+
+
+
+            <div class="row">
+            <label for="zodiac" class="col-sm-2">生肖:</label>
+            <input id="zodiac" name="zodiac"  class="col-sm-5">
+            </div>
+
+            <div class="row">
+                <label for="constellation" class="col-sm-2">星座:</label>
+                <input id="constellation" name="constellation"  class="col-sm-5">
+            </div>
+
+            <div class="row">
+                <label for="interest" class="col-sm-2">兴趣:</label>
+                <input id="interest" name="interest"  class="col-sm-5">
+            </div>
+            <div class="row">
+                <label for="job" class="col-sm-2"><span class="error-color">*</span>职业:</label>
+                <input id="job" name="job"  class="col-sm-5">
+            </div>
+            <div class="row">
+                <label for="mobile" class="col-sm-2"><span class="error-color">*</span>手机:</label>
+                <input id="mobile" name="mobile"  class="col-sm-5">
+            </div>
+
+
+
+            <div class="row">
+                <label for="address" class="col-sm-2">家庭住址:</label>
+                <input id="address" name="address"  class="col-sm-8">
+            </div>
+
+            <div class="row">
+                <label for="job_addr" class="col-sm-2">工作地址:</label>
+                <input id="job_addr" name="job_addr" class="col-sm-7">
+            </div>
+
+            <div class="row">
+                <label for="unit" class="col-sm-2">工作单位:</label>
+                <input id="unit" name="unit"  class="col-sm-7">
+            </div>
+
+            <div class="row">
+                <label for="message" class="col-sm-2"><span class="error-color">*</span>留言:</label>
+                <textarea id="message" name="message" rows="4"  class="col-sm-5" maxlength="80"></textarea>
+            </div>
+
+            <div class="row">
+                <label>头像</label>
+                <button type="button" class="btn btn-success btn-lg" style="margin-left: 50px;margin-right: 50px;height: 60px" ontouchend="chooseImage()" onclick="chooseImage()">上传头像</button>
+                <div class="preview">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <button class="btn btn-primary btn-lg submit-button" type="submit" onclick="submit()">提交</button>
+                <div class="alert alert-danger error-tip col-sm-offset-1" >
+                    <span class="error-text"></span>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script>
+var baseURl = 'your api route';
+
+    var classmate = null;
+    var token = sessionStorage.getItem('token');
+    var data = sessionStorage.getItem('classmate');
+    var avatar = '';
+    $(function(){
+        var href=document.getElementsByTagName('a');
+        for(var i=0;i<href.length;i++)
+        {
+            href[i].ontouchend=function(){
+                window.location.href=this.getAttribute("href");
+            }
+        };
+        $('.error-tip').hide();
+        console.log('aa:'+token)
+        if(token && data) {
+            classmate = JSON.parse(data)
+            for(var index in classmate) {
+                $('#'+index).val(classmate[index])
+            }
+            if(classmate.avatar) {
+                var html = '<img src="https://www.songzhiwen.cn' + classmate.avatar + '" class="img-preview img-thumbnail">';
+                $('.preview').html(html);
+            }
+        } else {
+            location.href = 'book.html'
+        }
+        var config = getConfig();
+        if(config) {
+            wx.config(config);
+        }
+    });
+    function submit() {
+
+        var name = $.trim($('#name').val());
+        if(!name) {
+            return showError('姓名必填')
+
+        }
+        var nickname = $.trim($('#nickname').val())
+        if(!nickname) {
+            return showError('请填写读书时大家对你的称呼')
+        }
+
+        var constellation = $('#constellation').val();
+        var zodiac = $('#zodiac').val();
+        var interest = $('#interest').val();
+        var job = $('#job').val();
+        if(!job) {
+            return showError('请填写职业信息')
+        }
+        var mobile = $('#mobile').val();
+        if(!mobile) {
+            return showError('请填写手机号')
+        }
+        if(isNaN(mobile) || mobile.length != 11) {
+            return showError('手机号格式不正确')
+        }
+        var address = $('#address').val();
+        var job_addr = $('#job_addr').val();
+        var unit = $('#unit').val();
+        var message = $.trim($('#message').val());
+        if(!message) {
+            return showError('跟同学们说两句吧！')
+        }
+
+        var data = {
+            name: name,
+            nickname: nickname,
+            zodiac: zodiac,
+            interest: interest,
+            job: job,
+            mobile: mobile,
+            address : address,
+            job_addr : job_addr,
+            unit : unit,
+            message : message,
+            constellation: constellation,
+            hide_mobile: 0,
+            avatar:avatar
+        };
+        console.log(token)
+        var url = baseURl + 'classmates/update?token=' + token;
+        $('.submit-button').attr('disabled',true);
+        $.ajax({
+            type:'post',
+            url: url,
+            data: data,
+            dataType:'json',
+            success: function(data) {
+                console.log(data)
+                if(data.code == 200) {
+                    sessionStorage.setItem('classmate',JSON.stringify(data.data));
+                    location.href = 'show.html'
+                } else {
+                    showError(data.msg)
+                }
+                $('.submit-button').attr('disabled',false);
+
+            },
+            error: function (data) {
+                console.log(data)
+                $('.submit-button').attr('disabled',false);
+                showError('服务器开小差了')
+
+
+            }
+
+        })
+
+    }
+
+
+    function showError(msg) {
+        $('.error-text').text(msg)
+        $('.error-tip').show()
+        hideError()
+        return false
+    }
+    function hideError() {
+        setTimeout(function () {
+            $('.error-tip').hide()
+        },3000)
+    }
+
+
+function getConfig() {
+    var config = null;
+    var url = baseURl + 'forSignature?url=' + location.href;
+    $.ajax({
+        type:'GET',
+        url:url,
+        dataType:'json',
+        async:false,
+        success: function (data) {
+            config= JSON.parse(data.data);
+        },
+        error: function (error) {
+            console.log(error)
+        }
+    })
+    return config;
+}
+
+function chooseImage() {
+    wx.chooseImage({
+        count: 1, // 默认9
+        sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+        sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+        success: function (res) {
+            var localId = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+            var html = '<img src="' + localId + '" class="img-preview img-thumbnail">' ;
+
+            uploadImage(localId);
+            $('.preview').html(html);
+        }
+    });
+}
+
+function uploadImage(localId) {
+    wx.uploadImage({
+        localId: localId.toString(), // 需要上传的图片的本地ID，由chooseImage接口获得
+        isShowProgressTips: 1, // 默认为1，显示进度提示
+        success: function (res) {
+            var serverId = res.serverId; // 返回图片的服务器端ID
+            uploadImgToServer(serverId);
+        }
+    });
+}
+
+function uploadImgToServer(serverId) {
+    $('.submit-button').attr('disabled',true);
+    var url = baseURl + 'forServerId';
+    $.ajax({
+        type:'POST',
+        url:url,
+        data:{serverId: serverId},
+        dataType:'json',
+        async:false,
+        success: function (data) {
+            avatar = data.data;
+            $('.submit-button').attr('disabled', false);
+
+        },
+        error: function (error) {
+            console.log(error)
+            $('.submit-button').attr('disabled', false);
+
+        }
+    })
+}
+
+
+</script>
+</html>

@@ -1,0 +1,632 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>十年了，还记得那年一起暗恋过的女孩(男孩)吗</title>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'/>
+<!--<link rel="stylesheet" href="/dist/css/swiper.min.css">
+<link rel="stylesheet" href="/dist/css/animate.min.css">
+<script src="/dist/js/swiper.min.js"></script>
+<script src="/dist/js/swiper.animate.min.js"></script>-->
+
+<link rel="stylesheet" href="css/swiper.min.css">
+<link rel="stylesheet" href="css/animate.min.css">
+<!--<link rel="stylesheet" href="css/custom.css?v=aa">-->
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js" type="text/javascript" charset="utf-8"></script>
+
+    <script src="js/swiper.min.js"></script>
+<script src="js/swiper.animate.min.js"></script>
+<script src="js/swiper.animate-twice.min.js"></script>
+
+<style>
+*{
+	margin:0;
+	padding:0;
+}
+html,body{
+	height:100%;
+    background-color: red;
+}
+body{
+	font-family:"microsoft yahei";
+}
+.swiper-container {
+  /*  width: 320px;
+    height: 480px;*/
+	width: 100%;
+    height: 100%;
+	background:#fff;
+}  
+.swiper-slide{
+}
+.swiper-slide{
+	width:100%;
+	height:100%;
+	/*background:url(upload/bg.jpg) no-repeat left top;*/
+    background-size:100% 100%;
+
+}
+
+img{
+	display:block;
+}
+.swiper-pagination-bullet {
+width: 6px;
+height: 6px;
+background: #fff;
+opacity: .4;
+}
+.swiper-pagination-bullet-active {
+opacity: 1;
+}
+@-webkit-keyframes tipmove{0%{bottom:10px;opacity:0}50%{bottom:15px;opacity:1}100%{bottom:20px;opacity:0}}
+.ani{
+	}
+.txt{
+	position:absolute;
+}
+#array{
+	position:absolute;z-index:999;-webkit-animation: tipmove 1.5s infinite ease-in-out;
+}
+
+.first {
+    background:url(img/first_01.jpg) no-repeat left top;
+    background-size:100% 100%;
+
+}
+
+.first-txt {
+    z-index:3;
+    text-align: center;
+    transform: rotate(35deg);
+    font-size: small;
+    color: darkgrey;
+    position:absolute;
+    left:20%;
+    top:50%;
+}
+
+.third {
+    background:url(img/gbg_01.jpg) no-repeat left top;
+    background-size:100% 100%;
+
+}
+
+    .third_02 {
+        z-index:5;
+        position: absolute;
+        left:-2%;
+        top:12%;
+        transform: rotate(20deg);
+    }
+.third_03 {
+    z-index:5;
+    position: absolute;
+    left:50%;
+    top:13%;
+    transform: rotate(20deg);
+}
+.third_04 {
+    z-index:5;
+    position: absolute;
+    left:20%;
+    top:16%;
+    transform: rotate(45deg);
+}
+
+.third_05 {
+    z-index:5;
+    position: absolute;
+    left:26%;
+    top:45%;
+}
+
+.third_06 {
+    z-index:5;
+    position: absolute;
+    left:26%;
+    top:45%;
+}
+.second {
+    background:url(img/gbg_08.jpg) no-repeat left top;
+    background-size:100% 100%;
+}
+.second-txt {
+    z-index: 5;
+    text-align: center;
+    margin-top: 20px;
+    color:white;
+}
+    .img-base {
+        z-index: 5;
+    }
+    .second_img1 {
+        margin-top: 10px;
+        z-index: 5;
+    }
+    .second_img2 {
+        margin-top: 10px;
+        z-index: 5;
+    }
+    .second-txt2 {
+        position: relative;
+        top:-70px;
+        color:rgba(0,0,0,0.4);
+    }
+    .second-txt3 {
+        position: relative;
+        top:-60px;
+        color:rgba(0,0,0,0.4);
+    }
+    .second-txt4 {
+        position: relative;
+        top:-50px;
+        color:rgba(0,0,0,0.4);
+    }
+.four {
+    background:url(img/gbg_05.jpg) no-repeat left top;
+    background-size:100% 100%;
+}
+    .four_01 {
+        position: absolute;
+        left:28%;
+        top:40%;
+    }
+.four_02 {
+    position: absolute;
+    left:5%;
+    top:12%;
+}
+.four_03 {
+    position: absolute;
+    left:50%;
+    top:12%;
+}
+.four_04 {
+    position: absolute;
+    left:5%;
+    top:70%;
+}
+.four_05 {
+    position: absolute;
+    left:50%;
+    top:70%;
+}
+.four_06 {
+    position: absolute;
+    left:28%;
+    top:5%;
+    transform: rotate(45deg);
+}
+.four_07 {
+    position: absolute;
+    left:28%;
+    top:70%;
+    transform: rotate(45deg);
+
+}
+.four_08 {
+    position: absolute;
+    left:-7%;
+    top:41%;
+    transform: rotate(45deg);
+}
+.four_09 {
+    position: absolute;
+    left:53%;
+    top:41%;
+    transform: rotate(45deg);
+}
+
+.five {
+    background:url(img/gbg_04.jpg) no-repeat left top;
+    background-size:100% 100%;
+}
+.five_01 {
+    position: absolute;
+    left:7%;
+    top:22%;
+}
+.five_02 {
+    position: absolute;
+    left:7%;
+    top:60%;
+}
+.six {
+    background:url(img/gbg_03.jpg) no-repeat left top;
+    background-size:100% 100%;
+}
+    .six_01 {
+        position: absolute;
+        left:2%;
+        top:50%;
+    }
+.seven {
+    background:url(img/gbg_012.jpg) no-repeat left top;
+    background-size:100% 100%;
+}
+    .link-bottom {
+        position: absolute;
+        left: 5%;
+        top: 94%;
+    }
+    .link-bottom a {
+        color:deepskyblue;
+        text-decoration: none;
+    }
+    .me {
+        position: absolute;
+        left: 80%;
+        top:90%;
+        color:gray;
+    }
+
+</style>
+
+</head>
+
+<body>
+<div style="visibility:hidden;height:0;width:0;">
+    <img src="img/preview.jpg" >
+
+</div>
+<audio autoplay="autoplay"  preload="auto"
+       src="audio/classmate.mp3">
+    你的浏览器不支持audio标签
+</audio>
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+    <!-------------slide1----------------->
+        <section class="swiper-slide first">
+            <div class="ani first-txt"
+                 data-slide-in="at 1000 from fadeIn use swing during 1000" >
+                十年了，<br/>
+                还记得那年一起暗恋过的女孩(男孩)吗
+             </div>
+
+        </section>
+            <!--slide2-->
+        <section class="swiper-slide second">
+            <!--2000-->
+            <div class="ani second-txt"
+                 data-slide-in="at 0 from slideInDown use swing during 2000" >
+                <strong>少男少女的时代，我们相遇了</strong>
+            </div>
+            <!--1500-->
+            <center>
+            <img src="img/example.jpeg" class="ani second_img1" onclick="preview(this)" ontouchend="preview(this)"
+                 data-slide-in="at 2000 from fadeInLeft use swing during 1500">
+            </center>
+            <!--1500-->
+            <center>
+                <img src="img/example.jpeg" class="ani second_img2" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 4000 from fadeInRight use swing during 1500">
+            </center>
+            <center>
+                <img src="img/example.jpeg" class="ani second_img2" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 6000 from fadeIn use swing during 1500">
+            </center>
+
+            <div>
+            <center>
+                <img src="img/example.jpeg" class="ani second_img2" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 8000 from fadeInLeft use swing during 1500"
+                     data-slide-out="at 1000 to fadeOutRight use swing during 1500 force">
+            </center>
+                <center>
+                    <div class="ani second-txt2"
+                         data-slide-in="at 13000 from flipInX use swing during 1500"
+                    >
+                        遇上天真的你<br/>
+                        笑过<br/>
+                        哭过
+                    </div>
+                </center>
+                <center>
+                    <div class="ani second-txt3"
+                         data-slide-in="at 15000 from fadeIn use swing during 1500"
+                    >
+                        有过嘴仗<br/>
+                        打过架
+                    </div>
+                </center>
+                <center>
+                    <div class="ani second-txt4"
+                         data-slide-in="at 17000 from fadeIn use swing during 1500"
+                    >
+                        青春躁动的叛逆期<br/>
+                        你是否禁得住青苹果的诱惑
+                    </div>
+                </center>
+            </div>
+        </section>
+     <!---------------slide2-------------->
+        <section class="swiper-slide third">
+            <center>
+         <img src="img/third_01.png" class="ani" style="width:80%"
+              data-slide-in="at 1000 from fadeIn use swing during 1500">
+            </center>
+        <div class="third_02">
+        <img src="img/example.jpeg" class="ani" style="width: 200px;height: 200px;" onclick="preview(this)" ontouchend="preview(this)"
+             data-slide-in="at 2000 from fadeInRight use swing during 1500">
+        </div>
+
+            <div class="third_03">
+                <img src="img/example.jpeg" class="ani" style="width: 200px;height: 200px;" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 4000 from rotateIn use swing during 1500">
+            </div>
+
+            <div class="third_04">
+                <img src="img/example.jpeg" class="ani" style="width: 200px;height: 200px;" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 6000 from fadeIn use swing during 1500">
+            </div>
+
+            <div class="third_05">
+                <img src="img/example.jpeg" class="ani" style="width: 200px;height: 200px;" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 8000 from fadeInUp use swing during 1500">
+            </div>
+
+            <div class="third_06">
+                <img src="img/second_06.png" class="ani" style="width: 80%"
+                     data-slide-in="at 10000 from fadeInUp use swing during 1500">
+            </div>
+
+        </section>
+     <!----------------slide4-------------->
+        <section class="swiper-slide four">
+
+            <div style="z-index: 10;position: absolute">
+                <img src="img/four_txt.png" class="ani" style="width: 74%"
+                     data-slide-in="at 1000 from fadeInDown use swing during 1500">
+            </div>
+            <!--<div style="z-index:10;position: absolute;">-->
+                <!--<img src="img/txt.png" style="width: 100%">-->
+            <!--</div>-->
+            <div class="four_01">
+                <img src="img/example.jpeg" class="ani pre" style="width: 160px;height: 160px" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 2000 from fadeIn use swing during 1500">
+            </div>
+            <div class="four_02">
+                <img src="img/example.jpeg" class="ani  pre" style="width: 160px;height: 160px" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 4000 from fadeIn use swing during 1500">
+            </div>
+
+            <div class="four_03">
+                <img src="img/example.jpeg" class="ani  pre" style="width: 160px;height: 160px" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 6000 from fadeIn use swing during 1500">
+            </div>
+
+            <div class="four_04">
+                <img src="img/example.jpeg" class="ani  pre" style="width: 160px;height: 160px" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 8000 from fadeIn use swing during 1500">
+            </div>
+
+            <div class="four_05">
+                <img src="img/example.jpeg" class="ani  pre" style="width: 160px;height: 160px" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 10000 from fadeIn use swing during 1500">
+            </div>
+
+            <div class="four_06">
+                <img src="img/example.jpeg" class="ani  pre" style="width: 160px;height: 160px" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 12000 from fadeIn use swing during 1500">
+            </div>
+
+            <div class="four_07">
+                <img src="img/example.jpeg" class="ani  pre" style="width: 160px;height: 160px" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 14000 from fadeIn use swing during 1500">
+            </div>
+
+            <div class="four_08">
+                <img src="img/example.jpeg" class="ani  pre" style="width: 160px;height: 160px" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 16000 from fadeIn use swing during 1500">
+            </div>
+
+            <div class="four_09">
+                <img src="img/example.jpeg" class="ani  pre" style="width: 160px;height: 160px" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 18000 from fadeIn use swing during 1500">
+            </div>
+
+
+        </section>
+        <!-------------slide4----------------->
+        <section class="swiper-slide five">
+
+            <div style="position: absolute;z-index:60">
+                <img src="img/five_txt.png" class="ani" style="width:100%"
+                     data-slide-in="at 1000 from slideInDown use swing during 1500">
+            </div>
+
+            <div class="five_01">
+                <img src="img/example.jpeg" class="ani  pre" style="width: 80%" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 2000 from zoomInLeft use swing during 1500">
+            </div>
+
+            <div class="five_02">
+                <img src="img/example.jpeg" class="ani  pre" style="width: 80%" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 4000 from zoomInRight use swing during 1500">
+            </div>
+
+            <div class="five_01">
+                <img src="img/example.jpeg" class="ani  pre" style="width: 80%" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 6000 from zoomInLeft use swing during 1500">
+            </div>
+
+            <div class="five_02">
+                <img src="img/example.jpeg" class="ani  pre" style="width: 80%" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 8000 from zoomInRight use swing during 1500">
+            </div>
+
+            <div class="five_01">
+                <img src="img/example.jpeg" class="ani  pre" style="width: 80%" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 10000 from zoomInLeft use swing during 1500">
+            </div>
+
+            <div class="five_02">
+                <img src="img/example.jpeg" class="ani  pre" style="width: 80%" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 12000 from zoomInRight use swing during 1500">
+            </div>
+
+            <div class="five_01">
+                <img src="img/example.jpeg" class="ani pre " style="width: 80%" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 14000 from zoomInLeft use swing during 1500">
+            </div>
+
+            <div class="five_02">
+                <img src="img/example.jpeg" class="ani  pre" style="width: 80%" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 16000 from zoomInRight use swing during 1500">
+            </div>
+
+            <div class="five_01">
+                <img src="img/example.jpeg" class="ani  pre" style="width: 80%" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 18000 from zoomInLeft use swing during 1500">
+            </div>
+
+            <div class="five_02">
+                <img src="img/example.jpeg" class="ani  pre" style="width: 80%" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 20000 from zoomInRight use swing during 1500">
+            </div>
+
+        </section>
+        <section class="swiper-slide six">
+            <div style="z-index: 10;position: absolute">
+                <img src="img/young.png" class="ani" style="width: 100%"
+                     data-slide-in="at 1000 from fadeInDown use swing during 1500">
+            </div>
+
+            <div class="six_01">
+                <img src="img/example.jpeg" class="ani  pre" style="width: 95%" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 2000 from fadeIn use swing during 2000"
+                     data-slide-out="at 5 to zoomOut use swing during 0 force"
+                >
+            </div>
+
+            <div class="six_01">
+                <img src="img/example.jpeg"  class="ani  pre" style="width: 95%" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 6000 from fadeIn use swing during 2000"
+                     data-slide-out="at 5 to fadeOut use swing during 0 force"
+                    >
+            </div>
+
+            <div class="six_01">
+                <img src="img/primary_01.jpg" class="ani  pre" style="width: 95%" onclick="preview(this)" ontouchend="preview(this)"
+                     data-slide-in="at 10000 from fadeIn use swing during 2000">
+            </div>
+        </section>
+
+        <section class="swiper-slide seven">
+            <div style="z-index: 10;position: absolute;margin-top:30px">
+                <img src="img/desc_01.png" class="ani" style="width: 100%"
+                     data-slide-in="at 2000 from slideInLeft use swing during 1500">
+            </div>
+            <div class="ani me" data-slide-in="at 4000 from fadeIn use swing during 1000">
+               <div style="display: inline">
+                   <img src="img/head.png" style="width: 50px">
+               </div>
+            </div>
+                <div class="ani link-bottom" style="position:absolute;z-index:99"
+                     data-slide-in="at 4000 from fadeIn use swing during 1000" >
+                   <a href="book.html">点击这里填写通讯录信息</a>
+                </div>
+        </section>
+        
+        
+    </div>
+    
+   <img src="images/web-swipe-tip.png" style="width:20px;height:15px; top:460px; left:150px;" id="array" class="resize"> 
+  <!--<div class="swiper-pagination"></div>  -->
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+
+<script>
+
+
+scaleW=window.innerWidth/320;
+scaleH=window.innerHeight/480;
+var resizes = document.querySelectorAll('.resize');
+          for (var j=0; j<resizes.length; j++) {
+           resizes[j].style.width=parseInt(resizes[j].style.width)*scaleW+'px';
+		   resizes[j].style.height=parseInt(resizes[j].style.height)*scaleH+'px';
+		   resizes[j].style.top=parseInt(resizes[j].style.top)*scaleH+'px';
+		   resizes[j].style.left=parseInt(resizes[j].style.left)*scaleW+'px'; 
+	
+          }
+var scales = document.querySelectorAll('.txt');
+for (var i=0; i<scales.length; i++) {
+	ss=scales[i].style;
+	ss.webkitTransform = ss.MsTransform = ss.msTransform = ss.MozTransform = ss.OTransform =ss.transform='translateX('+scales[i].offsetWidth*(scaleW-1)/2+'px) translateY('+scales[i].offsetHeight*(scaleH-1)/2+'px)scaleX('+scaleW+') scaleY('+scaleH+') ';
+}
+
+		  
+  var mySwiper = new Swiper ('.swiper-container', {
+    direction : 'vertical',
+//    pagination: {
+//	   el:'.swiper-pagination',
+//    },
+      lazyLoading:true,
+    mousewheel: true,
+    on:{
+	  init: function(){
+        swiperAnimateCache(this);
+        swiperAnimate(this);
+ 	  },
+      slideChangeTransitionEnd: function(){
+  	    swiperAnimate(this);
+      }
+    }
+  })
+
+$(function(){
+    var href=document.getElementsByTagName('a');
+    for(var i=0;i<href.length;i++)
+    {
+        href[i].ontouchend=function(){
+            window.location.href=this.getAttribute("href");
+        }
+    };
+    var config = getConfig();
+    if(config) {
+        config.debug = false
+        wx.config(config);
+    }
+
+})
+
+var baseURl = 'your api route'
+
+function getConfig() {
+    var config = null;
+    var url = baseURl + 'forSignature?url=' + location.href;
+    $.ajax({
+        type:'GET',
+        url:url,
+        dataType:'json',
+        async:false,
+        success: function (data) {
+            config= JSON.parse(data.data);
+            console.log(config);
+        },
+        error: function (error) {
+            console.log(error)
+        }
+    })
+    return config;
+}
+
+function preview(t) {
+    var hostname =  'your api route';
+    var lists = [];
+    var src = hostname + $(t).attr('src');
+    $('.pre').each(function () {
+            lists.push(hostname + $(this).attr('src'));
+    })
+    wx.previewImage({
+        current: src, // 当前显示图片的http链接
+        urls: lists // 需要预览的图片http链接列表
+    });
+}
+
+  </script>
+</body>
+</html>
